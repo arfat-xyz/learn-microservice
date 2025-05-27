@@ -1,9 +1,4 @@
-import React, {
-  useState,
-  useEffect,
-  type Dispatch,
-  type SetStateAction,
-} from "react";
+import { useState, useEffect, type Dispatch, type SetStateAction } from "react";
 import type { IPost } from "../utls/interfaces";
 import { SimplePostCard } from "./simple-post-card";
 
