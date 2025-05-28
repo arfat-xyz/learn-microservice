@@ -20,6 +20,7 @@ const postEvent = async (
 ): Promise<any> => {
   try {
     const event = eventSchema.parse(req.body);
+    console.log(`Before promise`, event);
     events.push(event);
     await Promise.all([
       axios.post(`${process.env.POST_API}/events`, event),
@@ -27,6 +28,7 @@ const postEvent = async (
       axios.post(`${process.env.QUERY_API}/events`, event),
       axios.post(`${process.env.COMMENT_MODERATE_API}/events`, event),
     ]);
+    console.log(`After promise`);
     res.status(201).json({ status: "OK" });
   } catch (error) {
     if (error instanceof z.ZodError) {

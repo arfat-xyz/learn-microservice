@@ -115,7 +115,6 @@ const handleCreateComment = async (req: Request, res: Response) => {
 };
 const createEvents = async (req: Request, res: Response) => {
   const { type, data } = req.body;
-  console.log({ type });
   if (type === "postCreated") {
     commentsByPostId[data?.id] = [];
   }
@@ -124,11 +123,14 @@ const createEvents = async (req: Request, res: Response) => {
     const comments = commentsByPostId[postId];
     const comment = comments.find((c) => c.id === id);
     comment?.status === status;
+    console.log(`api`, process.env.EVENT_API);
+    console.log(comment, postId, status, id);
     await axios.post(process.env.EVENT_API + "/events", {
       type: "commentUpdated",
       data: { ...req.body.data },
     });
   }
+  console.log({ type });
   res.status(201).send({});
 };
 /**
